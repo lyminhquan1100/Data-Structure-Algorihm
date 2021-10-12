@@ -1,22 +1,40 @@
 package Array;
 
+import java.util.Arrays;
+
 public class _88_Merge_Sorted_Array {
     public static void main(String[] args) {
         int[] nums1 = {1, 2, 3, 0, 0, 0};
         int[] nums2 = {2, 5, 6};
-        
+        merge(nums1,3,nums2,3);
+        for(int pt: nums1){
+            System.out.print(pt + " ");
+        }
     }
 
-    public static boolean merge(int[] nums1, int m, int[] nums2, int n) {
-        for (int i = 0; i < m; i++) {
-            if(nums1[i] < nums2[i]){
-                continue;
-            } else if(nums1[i] == nums2[i]){
-                nums1[i+1] = nums2[i];
-            } else {
-                nums1[i] = nums2[i];
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        for (int ai : nums2) {
+            chenPhanTuVaoMang(ai, nums1, m);
+            m++;
+        }
+    }
+
+    private static void chenPhanTuVaoMang(int ai, int[] nums1, int m) {
+        boolean timDuocK = false;
+        for (int k = 0; k < m; k++) {
+            if (nums1[k] > ai) {
+                timDuocK = true;
+                for (int i = m - 1; i >= k; i--) {
+                    nums1[i + 1] = nums1[i];
+                }
+                nums1[k] = ai;
+                break;
             }
         }
-        return false;
+
+        if (timDuocK == false) {
+            nums1[m] = ai;
+        }
     }
+
 }
